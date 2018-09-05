@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF176"
+    android:padding="5dp"
+    tools:context="com.hashinclude.cmoc.emodulesapp.NotesFragment">
+
+    <EditText
+        android:id="@+id/notesEditText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF9C4"
+        android:gravity="top"
+        android:padding="5dp"
+        android:textCursorDrawable="@null" />
+
+</FrameLayout>
