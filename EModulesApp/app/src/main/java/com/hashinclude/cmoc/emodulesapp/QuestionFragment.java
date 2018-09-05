@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,23 +93,23 @@ public class QuestionFragment extends Fragment {
                             Toast.makeText(getContext(), "Select an option.", Toast.LENGTH_SHORT).show();
                             return;
                         case 0:
-                            chosenAnswer = "a";
+                            chosenAnswer = "A";
                             break;
 
                         case 1:
-                            chosenAnswer = "b";
+                            chosenAnswer = "B";
                             break;
 
                         case 2:
-                            chosenAnswer = "c";
+                            chosenAnswer = "C";
                             break;
 
                         case 3:
-                            chosenAnswer = "d";
+                            chosenAnswer = "D";
                             break;
 
                         case 4:
-                            chosenAnswer = "e";
+                            chosenAnswer = "E";
                             break;
                     }
                     answerButtonGroup.setClickable(false);
@@ -149,24 +150,24 @@ public class QuestionFragment extends Fragment {
     public RadioRealButton[] currentChosenButton(View row, String toCheck) {
         RadioRealButton[] correctButton = new RadioRealButton[1];
         switch (toCheck) {
-            case "a":
+            case "A":
                 correctButton[0] = row.findViewById(R.id.radioButtonA);
                 break;
-            case "b":
+            case "B":
                 correctButton[0] = row.findViewById(R.id.radioButtonB);
                 break;
 
-            case "c":
+            case "C":
                 correctButton[0] = row.findViewById(R.id.radioButtonC);
                 break;
 
-            case "d":
-                correctButton[0] = row.findViewById(R.id.radioButtonD);
-                break;
-
-            case "e":
-                correctButton[0] = row.findViewById(R.id.radioButtonE);
-                break;
+//            case "D":
+//                correctButton[0] = row.findViewById(R.id.radioButtonD);
+//                break;
+//
+//            case "E":
+//                correctButton[0] = row.findViewById(R.id.radioButtonE);
+//                break;
         }
         return correctButton;
     }

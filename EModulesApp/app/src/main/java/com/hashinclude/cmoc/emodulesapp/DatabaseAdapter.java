@@ -9,14 +9,16 @@ import android.text.TextUtils;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by harsh on 2/7/18.
  */
 
 public class DatabaseAdapter {
-    DatabaseHelper databaseHelper;
-    String[] allColumns = {
+    Context context;
+    private DatabaseHelper databaseHelper;
+    private String[] allColumns = {
             DatabaseHelper.ID,
             DatabaseHelper.QUERY,
             DatabaseHelper.SOLUTION,
@@ -26,8 +28,6 @@ public class DatabaseAdapter {
             DatabaseHelper.MARKED,
             DatabaseHelper.TIME_TAKEN,
             DatabaseHelper.FLAGGED};
-
-    Context context;
 
     public DatabaseAdapter(Context context) {
         databaseHelper = new DatabaseHelper(context);
@@ -103,85 +103,68 @@ public class DatabaseAdapter {
         return questionModels;
     }
 
-    public float[] getFromTopic(int i) {
+    public List<float[]> getStackedValues() {
+        List<float []> stacks = new ArrayList<>();
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        String toAdd = "";
-        if (i == 0) {
-            toAdd = "'%Solving'";
-        } else if (i == 1) {
-            toAdd = "'%Sufficiency'";
-        } else if (i == 2) {
-            toAdd = "'%Comprehension'";
-        } else if (i == 3) {
-            toAdd = "'%Reasoning'";
-        } else {
-            toAdd = "'%Correction'";
-        }
-        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, allColumns,
-                DatabaseHelper.TOPIC + " LIKE " + toAdd,
-                null,
-                null,
-                null,
-                null);
+        for (String topic : getTopics()){
+            Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, allColumns,
+                    DatabaseHelper.TOPIC + " = '" + topic + "'",
+                    null,
+                    null,
+                    null,
+                    null);
 
-        float[] arr = new float[4];
-        for (int j = 0; j < 4; j++) {
-            arr[j] = 0;
-        }
-        while (cursor.moveToNext()) {
-            QuestionModel temp = getQuestionModelFromCursor(cursor);
-            if (TextUtils.isEmpty(temp.getMarked()) && TextUtils.isEmpty(temp.getTimeTaken())) {
-                arr[0]++;
-            } else if (TextUtils.isEmpty(temp.getMarked()) && !TextUtils.isEmpty(temp.getTimeTaken())) {
-                arr[1]++;
-            } else if (!TextUtils.isEmpty(temp.getMarked()) && temp.getMarked().equals(temp.getCorrect())) {
-                arr[3]++;
-            } else {
-                arr[2]++;
+            float[] arr = new float[4];
+            for (int j = 0; j < 4; j++) {
+                arr[j] = 0;
             }
+            while (cursor.moveToNext()) {
+                QuestionModel temp = getQuestionModelFromCursor(cursor);
+                if (TextUtils.isEmpty(temp.getMarked()) && TextUtils.isEmpty(temp.getTimeTaken())) {
+                    arr[0]++;
+                } else if (TextUtils.isEmpty(temp.getMarked()) && !TextUtils.isEmpty(temp.getTimeTaken())) {
+                    arr[1]++;
+                } else if (!TextUtils.isEmpty(temp.getMarked()) && temp.getMarked().equals(temp.getCorrect())) {
+                    arr[3]++;
+                } else {
+                    arr[2]++;
+                }
+            }
+            stacks.add(arr);
         }
-        return arr;
+        return stacks;
     }
 
-    public float averageTimeTaken(int i) {
+    public List<Float> averageTimeTaken() {
+        List<Float> avgTimeList = new ArrayList<>();
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        String toAdd = "";
-        if (i == 0) {
-            toAdd = "'%Solving'";
-        } else if (i == 1) {
-            toAdd = "'%Sufficiency'";
-        } else if (i == 2) {
-            toAdd = "'%Comprehension'";
-        } else if (i == 3) {
-            toAdd = "'%Reasoning'";
-        } else {
-            toAdd = "'%Correction'";
-        }
-        int count = 0;
-        long timeTaken = 0;
-        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, allColumns,
-                DatabaseHelper.TOPIC + " LIKE " + toAdd +" AND "+
-                        DatabaseHelper.TIME_TAKEN + " IS NOT NULL ",
-                null,
-                null,
-                null,
-                null);
-        while (cursor.moveToNext()) {
-            QuestionModel temp = getQuestionModelFromCursor(cursor);
-            if (!TextUtils.isEmpty(temp.getTimeTaken())) {
-                String[] arr = temp.getTimeTaken().split(":");
-                int min = Integer.parseInt(arr[0]);
-                int sec = Integer.parseInt(arr[1]);
-                timeTaken += min * 60 + sec;
-                count++;
+        for (String topic : getTopics()) {
+            int count = 0;
+            long timeTaken = 0;
+            Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, allColumns,
+                    DatabaseHelper.TOPIC + " = '" + topic + "' AND " +
+                            DatabaseHelper.TIME_TAKEN + " IS NOT NULL ",
+                    null,
+                    null,
+                    null,
+                    null);
+            while (cursor.moveToNext()) {
+                QuestionModel temp = getQuestionModelFromCursor(cursor);
+                if (!TextUtils.isEmpty(temp.getTimeTaken())) {
+                    String[] arr = temp.getTimeTaken().split(":");
+                    int min = Integer.parseInt(arr[0]);
+                    int sec = Integer.parseInt(arr[1]);
+                    timeTaken += min * 60 + sec;
+                    count++;
+                }
+            }
+            if (count != 0) {
+                avgTimeList.add((float) (timeTaken / count));
+            } else {
+                avgTimeList.add((float) 0);
             }
         }
-        if(count!=0){
-            return timeTaken/count;
-        }
-        else {
-            return 0;
-        }
+        return avgTimeList;
     }
 
     public ArrayList<QuestionModel> getAllUnattempted() {
@@ -205,7 +188,7 @@ public class DatabaseAdapter {
         String correctStatement = "";
         String incorrectStatement = "";
         String unattemptedStatement = "";
-        String topicsSelection = "";
+        StringBuilder topicsSelection = new StringBuilder();
 
         if (optionSelected[0] == 1) {
             flagStatement += " AND " + DatabaseHelper.FLAGGED + " =1";
@@ -219,21 +202,17 @@ public class DatabaseAdapter {
         if (optionSelected[3] == 1) {
             unattemptedStatement += " AND " + DatabaseHelper.MARKED + " IS NULL ";
         }
-        if (optionSelected[4] == 1) {
-            topicsSelection += " AND " + DatabaseHelper.TOPIC + " LIKE " + "'%Solving' ";
+        List<String> allTopics = getTopics();
+        for (int i = 0; i <allTopics.size(); i++){
+            if (optionSelected[i + 4] == 1) {
+                if (topicsSelection.indexOf(DatabaseHelper.TOPIC) >= 0)
+                    topicsSelection.append(" OR " + DatabaseHelper.TOPIC + " = " + "'").append(allTopics.get(i)).append("' ");
+                else
+                    topicsSelection.append(" AND (" + DatabaseHelper.TOPIC + " = " + "'").append(allTopics.get(i)).append("' ");
+            }
         }
-        if (optionSelected[5] == 1) {
-            topicsSelection += " AND " + DatabaseHelper.TOPIC + " LIKE " + "'%Sufficiency' ";
-        }
-        if (optionSelected[6] == 1) {
-            topicsSelection += " AND " + DatabaseHelper.TOPIC + " LIKE " + "'%Comprehension' ";
-        }
-        if (optionSelected[7] == 1) {
-            topicsSelection += " AND " + DatabaseHelper.TOPIC + " LIKE " + "'%Reasoning' ";
-        }
-        if (optionSelected[8] == 1) {
-            topicsSelection += " AND " + DatabaseHelper.TOPIC + " LIKE " + "'%Correction' ";
-        }
+        if (topicsSelection.indexOf(DatabaseHelper.TOPIC) >= 0)
+            topicsSelection.append(") ");
 
         if ((!TextUtils.isEmpty(unattemptedStatement) && !TextUtils.isEmpty(correctStatement)) ||
                 (!TextUtils.isEmpty(incorrectStatement) && !TextUtils.isEmpty(correctStatement)) ||
@@ -324,6 +303,21 @@ public class DatabaseAdapter {
         return questionModels;
     }
 
+    public List<String> getTopics() {
+        List<String> topic = new ArrayList<>();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        Cursor cursor = database.rawQuery("SELECT DISTINCT " + DatabaseHelper.TOPIC + " FROM " + DatabaseHelper.TABLE_NAME, null);
+        if (cursor!=null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    topic.add(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TOPIC)));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        return topic;
+    }
+
     public QuestionModel getQuestionModelFromCursor(Cursor cursor) {
         QuestionModel temporary = new QuestionModel();
         int questionNumber = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID));
@@ -407,10 +401,8 @@ public class DatabaseAdapter {
     }
 
     static class DatabaseHelper extends SQLiteAssetHelper {
-        //      For details refer : https://github.com/utkarshmttl/eModules/tree/master/DB
-        Context context;
         private static final String DATABASE_NAME = "questionsdb.db";
-        private static final String TABLE_NAME = "questions";
+        private static final String TABLE_NAME = "CFA_questions";
         private static final int DATABASE_VERSION = 1;
         private static final String ID = "ID";
         private static final String QUERY = "query";
@@ -421,6 +413,8 @@ public class DatabaseAdapter {
         private static final String MARKED = "marked";
         private static final String TIME_TAKEN = "time_txt";
         private static final String FLAGGED = "flagged";
+        //      For details refer : https://github.com/utkarshmttl/eModules/tree/master/DB
+        Context context;
 
         //Need to call the super constructor
         public DatabaseHelper(Context context) {
@@ -428,5 +422,4 @@ public class DatabaseAdapter {
             this.context = context;
         }
     }
-
 }

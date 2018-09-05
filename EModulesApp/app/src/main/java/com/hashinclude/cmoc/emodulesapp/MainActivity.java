@@ -100,20 +100,33 @@ public class MainActivity extends AppCompatActivity {
         mainRecyclerView = findViewById(R.id.mainRecyclerView);
         context = this;
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        optionSelected = new int[10];
-        for (int i = 0; i < 10; i++) {
-            optionSelected[i] = 0;
-        }
         arrayList = new ArrayList<>();
         arrayList.add("Flagged Questions");
         arrayList.add("Correct Questions");
         arrayList.add("Incorrect Questions");
         arrayList.add("Unattempted Questions");
-        arrayList.add("Quant Problem Solving (QPS)");
-        arrayList.add("Quant Data Sufficiency (QDS)");
-        arrayList.add("Verbal Reading Comprehension (VRC)");
-        arrayList.add("Verbal Critical Reasoning (VCR)");
-        arrayList.add("Verbal Sentence Correction (VSC)");
+        DatabaseAdapter dA = new DatabaseAdapter(this);
+        List<String> topics = dA.getTopics();
+        arrayList.addAll(topics);
+        LinearLayout ll_topic1 = findViewById(R.id.ll_topics_1);
+        LinearLayout ll_topic2 = findViewById(R.id.ll_topics_2);
+        int counter = 0;
+        for (String topic: topics){
+            TextView rowTextView = new TextView(this);
+            rowTextView.setText((char)(65 + counter) + " : " + topic);
+            rowTextView.setTextSize(12);
+            rowTextView.setTextColor(Color.BLACK);
+            ll_topic1.addView(rowTextView);
+            TextView rowTextView1 = new TextView(this);
+            rowTextView1.setText((char)(65 + counter++) + " : " + topic);
+            rowTextView1.setTextSize(12);
+            rowTextView1.setTextColor(Color.BLACK);
+            ll_topic2.addView(rowTextView1);
+        }
+
+        optionSelected = new int[arrayList.size()];
+        for (int i = 0; i < optionSelected.length; i++)
+            optionSelected[i] = 0;
 
         databaseAdapter = new DatabaseAdapter(context);
         questionModelArrayList = databaseAdapter.getAllData();
@@ -268,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                 searchView.setVisibility(View.GONE);
                 rootListViewForSearch.setVisibility(View.GONE);
 
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < optionSelected.length; i++) {
                     optionSelected[i] = 0;
                 }
                 topicListViewAdapter = new TopicListViewAdapter();
@@ -322,8 +335,8 @@ public class MainActivity extends AppCompatActivity {
                         textSearchedFor = toSearch;
                         somethingSelected = true;
                     }
-                    for (int i = 0; i < 10; i++) {
-                        if (optionSelected[i] == 1) {
+                    for (int anOptionSelected : optionSelected) {
+                        if (anOptionSelected == 1) {
                             somethingSelected = true;
                             break;
                         }
@@ -355,11 +368,10 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         String temp = searchStringEditText.getText().toString();
                         if (!TextUtils.isEmpty(temp)) {
-                            String toSearch = temp.toLowerCase();
-                            textSearchedFor = toSearch;
+                            textSearchedFor = temp.toLowerCase();
                         }
-                        for (int i = 0; i < 10; i++) {
-                            if (optionSelected[i] == 1) {
+                        for (int anOptionSelected : optionSelected) {
+                            if (anOptionSelected == 1) {
                                 somethingSelected = true;
                                 break;
                             }
@@ -377,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                         rootListViewForSearch.setVisibility(View.GONE);
                         afterSearchToolbar.setVisibility(View.VISIBLE);
                         afterSearchTextView.setText(questionModelArrayList.size() + " Result(s)");
-                        for (int i = 0; i < 10; i++) {
+                        for (int i = 0; i < optionSelected.length; i++) {
                             optionSelected[i] = 0;
                         }
                         topicListViewAdapter = new TopicListViewAdapter();
@@ -403,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
             rootListViewForSearch.setVisibility(View.GONE);
             afterSearchToolbar.setVisibility(View.GONE);
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < optionSelected.length; i++) {
                 optionSelected[i] = 0;
             }
             topicListViewAdapter = new TopicListViewAdapter();
@@ -419,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<QuestionModel> questionModels = databaseAdapter.getAllData();
             questionModelArrayList = questionModels;
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < optionSelected.length; i++) {
                 optionSelected[i] = 0;
             }
             topicListViewAdapter = new TopicListViewAdapter();
@@ -572,9 +584,9 @@ public class MainActivity extends AppCompatActivity {
 
         List<BarEntry> barEntries = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
-            barEntries.add(new BarEntry((float) i, databaseAdapter.averageTimeTaken(i)));
-        }
+        final List<Float> avgTimeList = databaseAdapter.averageTimeTaken();
+        for (int i = 0; i < avgTimeList.size(); i++)
+            barEntries.add(new BarEntry((float) i, avgTimeList.get(i)));
 
         BarDataSet set = new BarDataSet(barEntries, "Average time per topic (sec.)");
         BarData data = new BarData(set);
@@ -598,20 +610,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 int v = (int) value;
-                if (v == 0) {
-                    return "QPS";
-                }
-                if (v == 1) {
-                    return "QDS";
-                }
-                if (v == 2) {
-                    return "VRC";
-                }
-                if (v == 3) {
-                    return "VCR";
-                }
-                if (v == 4) {
-                    return "VSC";
+                for (int i =0; i < avgTimeList.size(); i++){
+                    if (v == i)
+                        return String.valueOf((char)(65+i));
                 }
                 return "";
             }
@@ -624,12 +625,9 @@ public class MainActivity extends AppCompatActivity {
 //        STACKED BAR CHART
         ArrayList<BarEntry> stackedBarEntry = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
-            float[] status = databaseAdapter.getFromTopic(i);
-
-            stackedBarEntry.add(new BarEntry(
-                    i, status));
-        }
+        final List<float []> stacks = databaseAdapter.getStackedValues();
+        for (int i =0; i < stacks.size(); i++)
+            stackedBarEntry.add(new BarEntry(i, stacks.get(i)));
 
         BarDataSet set1;
 
@@ -654,20 +652,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 int v = (int) value;
-                if (v == 0) {
-                    return "QPS";
-                }
-                if (v == 1) {
-                    return "QDS";
-                }
-                if (v == 2) {
-                    return "VRC";
-                }
-                if (v == 3) {
-                    return "VCR";
-                }
-                if (v == 4) {
-                    return "VSC";
+                for (int i =0; i < stacks.size(); i++){
+                    if (v == i)
+                        return String.valueOf((char)(65+i));
                 }
                 return "";
             }
@@ -679,7 +666,7 @@ public class MainActivity extends AppCompatActivity {
 
         questionModels = databaseAdapter.getAllMatching(textSearchedFor, optionSelected);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < optionSelected.length; i++) {
             optionSelected[i] = 0;
         }
         topicListViewAdapter = new TopicListViewAdapter();
@@ -729,11 +716,9 @@ public class MainActivity extends AppCompatActivity {
             stackedBarEntry = new ArrayList<>();
             dataSets = new ArrayList<>();
 
-            for (int i = 0; i < 5; i++) {
-                float[] status = databaseAdapter.getFromTopic(i);
-                stackedBarEntry.add(new BarEntry(
-                        i, status));
-            }
+            final List<float []> stacks = databaseAdapter.getStackedValues();
+            for (int i =0; i < stacks.size(); i++)
+                stackedBarEntry.add(new BarEntry(i, stacks.get(i)));
 
             set1 = new BarDataSet(stackedBarEntry, "");
             set1.setDrawIcons(false);
@@ -764,9 +749,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            for (int i = 0; i < 5; i++) {
-                barEntries.add(new BarEntry((float) i, databaseAdapter.averageTimeTaken(i)));
-            }
+            final List<float []> stacks = databaseAdapter.getStackedValues();
+            for (int i =0; i < stacks.size(); i++)
+                barEntries.add(new BarEntry(i, stacks.get(i)));
+
             set = new BarDataSet(barEntries, "Average time per topic (sec.)");
             data = new BarData(set);
             data.setBarWidth(0.9f); // set custom bar width

@@ -266,11 +266,12 @@
             </LinearLayout>
 
         </LinearLayout>
-        <!--WHAT TO SHOW WHEN DRAGGED-->
         <ScrollView
             android:id="@+id/onScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="30dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -308,46 +309,15 @@
                     android:layout_height="500dp">
 
                 </com.github.mikephil.charting.charts.BarChart>
-
-                <TextView
+                <LinearLayout
+                    android:id="@+id/ll_topics_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_margin="2dp"
-                    android:text="QPS: Quant Problem Solving"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
+                    >
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="QDS: Quant Data Sufficiency"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="VRC: Verbal Reading Comprehension"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="VCR: Verbal Critical Reasioning"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="VSC: Verbal Sentence Correction"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -365,48 +335,14 @@
 
                 </com.github.mikephil.charting.charts.BarChart>
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/ll_topics_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_margin="2dp"
-                    android:text="QPS: Quant Problem Solving"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="QDS: Quant Data Sufficiency"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="VRC: Verbal Reading Comprehension"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="VCR: Verbal Critical Reasioning"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginTop="2dp"
-                    android:text="VSC: Verbal Sentence Correction"
-                    android:textColor="#000000"
-                    android:textSize="12sp" />
-
+                    >
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

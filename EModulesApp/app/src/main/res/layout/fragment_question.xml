@@ -107,23 +107,23 @@
                         app:rrb_text="C"
                         app:rrb_textColor="@android:color/black" />
 
-                    <co.ceryle.radiorealbutton.RadioRealButton
-                        android:id="@+id/radioButtonD"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="@android:color/black"
-                        app:rrb_text="D"
-                        app:rrb_textColor="@android:color/black" />
+                    <!--<co.ceryle.radiorealbutton.RadioRealButton-->
+                        <!--android:id="@+id/radioButtonD"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--app:rrb_ripple="true"-->
+                        <!--app:rrb_rippleColor="@android:color/black"-->
+                        <!--app:rrb_text="D"-->
+                        <!--app:rrb_textColor="@android:color/black" />-->
 
-                    <co.ceryle.radiorealbutton.RadioRealButton
-                        android:id="@+id/radioButtonE"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="@android:color/black"
-                        app:rrb_text="E"
-                        app:rrb_textColor="@android:color/black" />
+                    <!--<co.ceryle.radiorealbutton.RadioRealButton-->
+                        <!--android:id="@+id/radioButtonE"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--app:rrb_ripple="true"-->
+                        <!--app:rrb_rippleColor="@android:color/black"-->
+                        <!--app:rrb_text="E"-->
+                        <!--app:rrb_textColor="@android:color/black" />-->
 
                 </co.ceryle.radiorealbutton.RadioRealButtonGroup>
             </LinearLayout>
