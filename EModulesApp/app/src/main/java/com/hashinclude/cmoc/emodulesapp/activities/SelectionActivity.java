@@ -25,7 +25,7 @@ public class SelectionActivity extends AppCompatActivity{
         findViewById(R.id.course_2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseAdapter.DatabaseHelper.TABLE_NAME = "GMAT_questions";
+                DatabaseAdapter.DatabaseHelper.TABLE_NAME = "questions";
                 startActivity(new Intent(SelectionActivity.this, MainActivity.class));
             }
         });
