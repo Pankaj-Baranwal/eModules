@@ -1,4 +1,4 @@
-package com.hashinclude.cmoc.emodulesapp;
+package com.hashinclude.cmoc.emodulesapp.eventListeners;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -1,4 +1,4 @@
-package com.hashinclude.cmoc.emodulesapp;
+package com.hashinclude.cmoc.emodulesapp.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
@@ -400,9 +401,9 @@ public class DatabaseAdapter {
         return count;
     }
 
-    static class DatabaseHelper extends SQLiteAssetHelper {
+    public static class DatabaseHelper extends SQLiteAssetHelper {
         private static final String DATABASE_NAME = "questionsdb.db";
-        private static final String TABLE_NAME = "CFA_questions";
+        public static String TABLE_NAME = "CFA_questions";
         private static final int DATABASE_VERSION = 1;
         private static final String ID = "ID";
         private static final String QUERY = "query";

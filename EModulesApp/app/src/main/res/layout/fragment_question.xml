@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:orientation="vertical"
-        tools:context="com.hashinclude.cmoc.emodulesapp.QuestionFragment">
+        tools:context="com.hashinclude.cmoc.emodulesapp.fragments.QuestionFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

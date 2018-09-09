@@ -1,4 +1,4 @@
-package com.hashinclude.cmoc.emodulesapp;
+package com.hashinclude.cmoc.emodulesapp.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +19,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
+import com.hashinclude.cmoc.emodulesapp.fragments.NotesFragment;
+import com.hashinclude.cmoc.emodulesapp.fragments.QuestionFragment;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
+import com.hashinclude.cmoc.emodulesapp.R;
+import com.hashinclude.cmoc.emodulesapp.fragments.SolutionFragment;
+import com.hashinclude.cmoc.emodulesapp.eventListeners.SubmitButtonClickedEvent;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -89,11 +97,11 @@ public class SingleQuestionActivity extends AppCompatActivity {
 
 
         if (questionModel.getFlagged() == 0) {
-            GlideApp.with(this)
+            Glide.with(this)
                     .load(R.drawable.flag_white_border)
                     .into(flagQuestionToolbarImageView);
         } else {
-            GlideApp.with(this)
+            Glide.with(this)
                     .load(R.drawable.flagged_white_border)
                     .into(flagQuestionToolbarImageView);
         }
@@ -102,13 +110,13 @@ public class SingleQuestionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 vibrator.vibrate(70);
                 if (questionModel.getFlagged() == 0) {
-                    GlideApp.with(context)
+                    Glide.with(context)
                             .load(R.drawable.flagged_white_border)
                             .into((ImageView) view);
                     questionModel.setFlagged(1);
                     databaseAdapter.updateFlagged(questionModel.getId(), 1);
                 } else {
-                    GlideApp.with(context)
+                    Glide.with(context)
                             .load(R.drawable.flag_white_border)
                             .into((ImageView) view);
                     questionModel.setFlagged(0);

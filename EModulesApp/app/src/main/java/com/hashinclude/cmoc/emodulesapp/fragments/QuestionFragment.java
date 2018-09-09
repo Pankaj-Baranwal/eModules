@@ -1,11 +1,10 @@
-package com.hashinclude.cmoc.emodulesapp;
+package com.hashinclude.cmoc.emodulesapp.fragments;
 
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,11 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
+import com.hashinclude.cmoc.emodulesapp.R;
+import com.hashinclude.cmoc.emodulesapp.eventListeners.SubmitButtonClickedEvent;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -1,4 +1,4 @@
-package com.hashinclude.cmoc.emodulesapp;
+package com.hashinclude.cmoc.emodulesapp.fragments;
 
 
 import android.os.Bundle;
@@ -12,6 +12,11 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
+import com.hashinclude.cmoc.emodulesapp.R;
+import com.hashinclude.cmoc.emodulesapp.eventListeners.SubmitButtonClickedEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

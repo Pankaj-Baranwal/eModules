@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#FFF176"
     android:padding="5dp"
-    tools:context="com.hashinclude.cmoc.emodulesapp.NotesFragment">
+    tools:context="com.hashinclude.cmoc.emodulesapp.fragments.NotesFragment">
 
     <EditText
         android:id="@+id/notesEditText"

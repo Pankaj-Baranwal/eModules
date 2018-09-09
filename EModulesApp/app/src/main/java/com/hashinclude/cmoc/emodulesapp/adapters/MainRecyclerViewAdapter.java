@@ -1,4 +1,4 @@
-package com.hashinclude.cmoc.emodulesapp;
+package com.hashinclude.cmoc.emodulesapp.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
+import com.hashinclude.cmoc.emodulesapp.R;
 
 import java.util.ArrayList;
 
@@ -58,27 +62,27 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         //FOR STATUS OF QUESTION AND MAIN TEXT
         //if the user hasn't marked an answer, and hasn't even clicked the question(timeTaken = 0), so show unattempted sign
         if (TextUtils.isEmpty(markedAnswer) && TextUtils.isEmpty(timeTaken)) {
-            GlideApp.with(context)
+            Glide.with(context)
                     .load(R.drawable.normal_status)
                     .into(questionStatus);
             mainText += "Unattempted";
         }
         //if the user hasn't marked the answer and time is not null, meaning he opened the question, toh set a warning sign
         else if (TextUtils.isEmpty(markedAnswer) && !TextUtils.isEmpty(timeTaken)) {
-            GlideApp.with(context)
+            Glide.with(context)
                     .load(R.drawable.warning)
                     .into(questionStatus);
             mainText += "Unanswered";
         }
         //timeWon't be null if we are are, because won't update markedAnswer without updating timer
         else if (markedAnswer.equals(correctAnswer)) {
-            GlideApp.with(context)
+            Glide.with(context)
                     .load(R.drawable.success)
                     .into(questionStatus);
             //Time is surely not NULL, and marked answer is correct, so will show "Correct"
             mainText += "Correct";
         } else {
-            GlideApp.with(context)
+            Glide.with(context)
                     .load(R.drawable.error)
                     .into(questionStatus);
             //Time is surely not NULL, and marked answer is incorrect, so will show "Incorrect"
@@ -96,16 +100,16 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
         //FOR FLAG
         if (flagged == 0) {
-            GlideApp.with(context)
+            Glide.with(context)
                     .load(R.drawable.unflagged)
                     .into(flaggedImageView);
         } else {
-            GlideApp.with(context)
+            Glide.with(context)
                     .load(R.drawable.flagged)
                     .into(flaggedImageView);
         }
 
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(R.drawable.arrowrightcircle)
                 .into(holder.rightArrowImageView);
     }

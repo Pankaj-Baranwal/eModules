@@ -12,7 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/NoBarTheme">
+        </activity>
+        <activity
+            android:name=".activities.SingleQuestionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoBarTheme" />
+        <activity
+            android:name=".activities.SelectionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/NoBarTheme">
             <intent-filter>
@@ -21,11 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SingleQuestionActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoBarTheme" />
     </application>
 
 </manifest>

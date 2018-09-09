@@ -1,4 +1,4 @@
-package com.hashinclude.cmoc.emodulesapp;
+package com.hashinclude.cmoc.emodulesapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

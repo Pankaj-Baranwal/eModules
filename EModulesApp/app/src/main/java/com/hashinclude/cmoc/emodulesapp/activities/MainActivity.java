@@ -1,4 +1,4 @@
-package com.hashinclude.cmoc.emodulesapp;
+package com.hashinclude.cmoc.emodulesapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +41,12 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
+import com.hashinclude.cmoc.emodulesapp.adapters.MainRecyclerViewAdapter;
+import com.hashinclude.cmoc.emodulesapp.eventListeners.OnItemClickListener;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
+import com.hashinclude.cmoc.emodulesapp.R;
+import com.hashinclude.cmoc.emodulesapp.eventListeners.RowClickedListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 
