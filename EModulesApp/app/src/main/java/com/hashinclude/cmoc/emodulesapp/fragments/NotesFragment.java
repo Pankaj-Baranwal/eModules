@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
-import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
 import com.hashinclude.cmoc.emodulesapp.R;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
+import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
 
 
 /**

@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
-import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
 import com.hashinclude.cmoc.emodulesapp.R;
 import com.hashinclude.cmoc.emodulesapp.eventListeners.SubmitButtonClickedEvent;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
+import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 
