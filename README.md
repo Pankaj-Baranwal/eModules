@@ -4,9 +4,6 @@
 
 An android application that enables the user to practice from a set of questions, flag them and analyse his performance.
 
-<br>
-
->Demo of the app can be seen [here](http://kungfucat.me/images/portfolio/full/emodules.mp4).
 
 <br><br>
 
