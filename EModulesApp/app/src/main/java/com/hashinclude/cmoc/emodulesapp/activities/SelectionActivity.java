@@ -9,7 +9,7 @@ import android.view.View;
 import com.hashinclude.cmoc.emodulesapp.R;
 import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
 
-public class SelectionActivity extends AppCompatActivity{
+public class SelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

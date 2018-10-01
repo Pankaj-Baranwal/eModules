@@ -20,13 +20,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
+import com.hashinclude.cmoc.emodulesapp.R;
+import com.hashinclude.cmoc.emodulesapp.eventListeners.SubmitButtonClickedEvent;
 import com.hashinclude.cmoc.emodulesapp.fragments.NotesFragment;
 import com.hashinclude.cmoc.emodulesapp.fragments.QuestionFragment;
-import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
-import com.hashinclude.cmoc.emodulesapp.R;
 import com.hashinclude.cmoc.emodulesapp.fragments.SolutionFragment;
-import com.hashinclude.cmoc.emodulesapp.eventListeners.SubmitButtonClickedEvent;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
+import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import org.greenrobot.eventbus.EventBus;
