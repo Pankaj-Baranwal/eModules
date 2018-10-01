@@ -32,7 +32,7 @@
                 android:layout_height="30dp"
                 android:id="@+id/backArrowIcon"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/ic_back_arrow" />
+                android:src="@drawable/ic_arrow_back_white_24dp" />
 
             <TextView
                 android:id="@+id/toolbarTextView"

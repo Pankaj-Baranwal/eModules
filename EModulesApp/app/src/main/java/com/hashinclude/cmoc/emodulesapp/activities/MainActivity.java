@@ -41,12 +41,12 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
+import com.hashinclude.cmoc.emodulesapp.R;
 import com.hashinclude.cmoc.emodulesapp.adapters.MainRecyclerViewAdapter;
 import com.hashinclude.cmoc.emodulesapp.eventListeners.OnItemClickListener;
-import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
-import com.hashinclude.cmoc.emodulesapp.R;
 import com.hashinclude.cmoc.emodulesapp.eventListeners.RowClickedListener;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
+import com.hashinclude.cmoc.emodulesapp.utils.DatabaseAdapter;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 
@@ -57,6 +57,8 @@ import xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScrol
 
 public class MainActivity extends AppCompatActivity {
 
+    public static int REQUEST_CODE = 100;
+    public ArrayList<String> arrayList;
     //main RecyclerView will hold the data to show on the MainScreen
     RecyclerView mainRecyclerView;
     VerticalRecyclerViewFastScroller fastScroller;
@@ -65,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     MainRecyclerViewAdapter adapter;
     Vibrator vibrator;
-    public static int REQUEST_CODE = 100;
-    public ArrayList<String> arrayList;
     TopicListViewAdapter topicListViewAdapter;
     SlidingUpPanelLayout slidingUpPanelLayout;
 
@@ -117,14 +117,14 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout ll_topic1 = findViewById(R.id.ll_topics_1);
         LinearLayout ll_topic2 = findViewById(R.id.ll_topics_2);
         int counter = 0;
-        for (String topic: topics){
+        for (String topic : topics) {
             TextView rowTextView = new TextView(this);
-            rowTextView.setText((char)(65 + counter) + " : " + topic);
+            rowTextView.setText((char) (65 + counter) + " : " + topic);
             rowTextView.setTextSize(12);
             rowTextView.setTextColor(Color.BLACK);
             ll_topic1.addView(rowTextView);
             TextView rowTextView1 = new TextView(this);
-            rowTextView1.setText((char)(65 + counter++) + " : " + topic);
+            rowTextView1.setText((char) (65 + counter++) + " : " + topic);
             rowTextView1.setTextSize(12);
             rowTextView1.setTextColor(Color.BLACK);
             ll_topic2.addView(rowTextView1);
@@ -538,7 +538,7 @@ public class MainActivity extends AppCompatActivity {
         task.execute();
 
 //        STACKED BAR CHART
-        StackedBarChartTask stackedBarChartTask=new StackedBarChartTask();
+        StackedBarChartTask stackedBarChartTask = new StackedBarChartTask();
         stackedBarChartTask.execute();
     }
 
@@ -616,9 +616,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 int v = (int) value;
-                for (int i =0; i < avgTimeList.size(); i++){
+                for (int i = 0; i < avgTimeList.size(); i++) {
                     if (v == i)
-                        return String.valueOf((char)(65+i));
+                        return String.valueOf((char) (65 + i));
                 }
                 return "";
             }
@@ -631,8 +631,8 @@ public class MainActivity extends AppCompatActivity {
 //        STACKED BAR CHART
         ArrayList<BarEntry> stackedBarEntry = new ArrayList<>();
 
-        final List<float []> stacks = databaseAdapter.getStackedValues();
-        for (int i =0; i < stacks.size(); i++)
+        final List<float[]> stacks = databaseAdapter.getStackedValues();
+        for (int i = 0; i < stacks.size(); i++)
             stackedBarEntry.add(new BarEntry(i, stacks.get(i)));
 
         BarDataSet set1;
@@ -658,9 +658,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 int v = (int) value;
-                for (int i =0; i < stacks.size(); i++){
+                for (int i = 0; i < stacks.size(); i++) {
                     if (v == i)
-                        return String.valueOf((char)(65+i));
+                        return String.valueOf((char) (65 + i));
                 }
                 return "";
             }
@@ -722,8 +722,8 @@ public class MainActivity extends AppCompatActivity {
             stackedBarEntry = new ArrayList<>();
             dataSets = new ArrayList<>();
 
-            final List<float []> stacks = databaseAdapter.getStackedValues();
-            for (int i =0; i < stacks.size(); i++)
+            final List<float[]> stacks = databaseAdapter.getStackedValues();
+            for (int i = 0; i < stacks.size(); i++)
                 stackedBarEntry.add(new BarEntry(i, stacks.get(i)));
 
             set1 = new BarDataSet(stackedBarEntry, "");
@@ -734,7 +734,7 @@ public class MainActivity extends AppCompatActivity {
 
             stackedBarData = new BarData(dataSets);
             stackedBarData.setValueTextColor(Color.BLACK);
-           return null;
+            return null;
         }
 
         @Override
@@ -755,8 +755,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            final List<float []> stacks = databaseAdapter.getStackedValues();
-            for (int i =0; i < stacks.size(); i++)
+            final List<float[]> stacks = databaseAdapter.getStackedValues();
+            for (int i = 0; i < stacks.size(); i++)
                 barEntries.add(new BarEntry(i, stacks.get(i)));
 
             set = new BarDataSet(barEntries, "Average time per topic (sec.)");

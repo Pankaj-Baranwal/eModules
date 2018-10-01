@@ -79,7 +79,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="3dp"
-                        android:src="@drawable/ic_back_arrow" />
+                        android:src="@drawable/ic_arrow_back_white_24dp" />
 
                     <EditText
                         android:id="@+id/searchStringEditText"
@@ -115,7 +115,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_back_arrow" />
+                        android:src="@drawable/ic_arrow_back_white_24dp" />
 
                     <TextView
                         android:id="@+id/afterSearchTextView"
