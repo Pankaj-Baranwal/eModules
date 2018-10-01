@@ -105,9 +105,9 @@ public class DatabaseAdapter {
     }
 
     public List<float[]> getStackedValues() {
-        List<float []> stacks = new ArrayList<>();
+        List<float[]> stacks = new ArrayList<>();
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        for (String topic : getTopics()){
+        for (String topic : getTopics()) {
             Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, allColumns,
                     DatabaseHelper.TOPIC + " = '" + topic + "'",
                     null,
@@ -204,7 +204,7 @@ public class DatabaseAdapter {
             unattemptedStatement += " AND " + DatabaseHelper.MARKED + " IS NULL ";
         }
         List<String> allTopics = getTopics();
-        for (int i = 0; i <allTopics.size(); i++){
+        for (int i = 0; i < allTopics.size(); i++) {
             if (optionSelected[i + 4] == 1) {
                 if (topicsSelection.indexOf(DatabaseHelper.TOPIC) >= 0)
                     topicsSelection.append(" OR " + DatabaseHelper.TOPIC + " = " + "'").append(allTopics.get(i)).append("' ");
@@ -308,7 +308,7 @@ public class DatabaseAdapter {
         List<String> topic = new ArrayList<>();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         Cursor cursor = database.rawQuery("SELECT DISTINCT " + DatabaseHelper.TOPIC + " FROM " + DatabaseHelper.TABLE_NAME, null);
-        if (cursor!=null) {
+        if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
                     topic.add(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TOPIC)));
@@ -403,7 +403,6 @@ public class DatabaseAdapter {
 
     public static class DatabaseHelper extends SQLiteAssetHelper {
         private static final String DATABASE_NAME = "questionsdb.db";
-        public static String TABLE_NAME = "CFA_questions";
         private static final int DATABASE_VERSION = 1;
         private static final String ID = "ID";
         private static final String QUERY = "query";
@@ -414,6 +413,7 @@ public class DatabaseAdapter {
         private static final String MARKED = "marked";
         private static final String TIME_TAKEN = "time_txt";
         private static final String FLAGGED = "flagged";
+        public static String TABLE_NAME = "CFA_questions";
         //      For details refer : https://github.com/utkarshmttl/eModules/tree/master/DB
         Context context;
 

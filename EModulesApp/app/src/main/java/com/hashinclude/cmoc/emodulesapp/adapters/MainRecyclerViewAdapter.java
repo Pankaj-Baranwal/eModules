@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
 import com.hashinclude.cmoc.emodulesapp.R;
+import com.hashinclude.cmoc.emodulesapp.models.QuestionModel;
 
 import java.util.ArrayList;
 

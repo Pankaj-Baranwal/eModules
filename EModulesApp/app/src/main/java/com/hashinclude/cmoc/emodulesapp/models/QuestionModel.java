@@ -7,7 +7,18 @@ import android.os.Parcelable;
  * Created by harsh on 2/7/18.
  */
 
-public class QuestionModel implements Parcelable{
+public class QuestionModel implements Parcelable {
+    public static final Creator<QuestionModel> CREATOR = new Creator<QuestionModel>() {
+        @Override
+        public QuestionModel createFromParcel(Parcel in) {
+            return new QuestionModel(in);
+        }
+
+        @Override
+        public QuestionModel[] newArray(int size) {
+            return new QuestionModel[size];
+        }
+    };
     private int id;
     private String query, solution, correct, topic, notes, marked, timeTaken;
     private int flagged;
@@ -27,18 +38,6 @@ public class QuestionModel implements Parcelable{
         timeTaken = in.readString();
         flagged = in.readInt();
     }
-
-    public static final Creator<QuestionModel> CREATOR = new Creator<QuestionModel>() {
-        @Override
-        public QuestionModel createFromParcel(Parcel in) {
-            return new QuestionModel(in);
-        }
-
-        @Override
-        public QuestionModel[] newArray(int size) {
-            return new QuestionModel[size];
-        }
-    };
 
     public int getId() {
         return id;
