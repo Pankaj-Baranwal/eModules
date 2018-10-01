@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#ffffff"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_emodules_round"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/list_item_height"
-        />
+        android:src="@drawable/icon_emodules_round" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@+id/icon"
-        android:gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_huge"
-        >
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose your guide"
-            android:textColor="#000"
-            android:textSize="20sp"
             android:layout_marginBottom="@dimen/margin_large"
             android:gravity="center_horizontal"
-            />
+            android:text="Choose your guide"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
         <Button
             android:id="@+id/course_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:text="CFA"
-            />
+            android:text="CFA" />
+
         <Button
             android:id="@+id/course_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GMAT"
-            />
+            android:text="GMAT" />
     </LinearLayout>
 </RelativeLayout>

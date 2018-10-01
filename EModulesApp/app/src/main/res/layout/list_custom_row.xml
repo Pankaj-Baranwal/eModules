@@ -18,7 +18,7 @@
     <ImageView
         android:id="@+id/checkIconImageView"
         android:layout_width="25dp"
-        android:visibility="invisible"
         android:layout_height="25dp"
-        android:src="@drawable/action_check" />
+        android:src="@drawable/action_check"
+        android:visibility="invisible" />
 </LinearLayout>
